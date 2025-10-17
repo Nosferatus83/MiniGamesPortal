@@ -1,0 +1,4 @@
+/* This file is for global styles that are not part of Tailwind's utility classes */
+body {
+  background-color: #f0f0f0;
+}
