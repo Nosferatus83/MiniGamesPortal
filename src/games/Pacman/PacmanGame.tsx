@@ -76,13 +76,26 @@ const PacmanGame: React.FC = () => {
           `}</style>
           
           {/* Отображаем призраков */}
-          {ghosts.map((ghost, index) => (
-            <div key={index} className="absolute" style={{left: `${ghost.x * 30}px`, top: `${ghost.y * 30}px`, width: '30px', height: '30px'}}>
-              <div className={`w-5 h-5 bg-${ghost.color}-500 rounded-t-full z-10 ${
-                animationFrame === 0 ? 'ghost-sway-left' : 'ghost-sway-right'
-              }`}></div>
-            </div>
-          ))}
+          {ghosts.map((ghost, index) => {
+            // Создаем объект сопоставления цветов призраков с классами Tailwind
+            const ghostColorClasses: Record<string, string> = {
+              red: 'bg-red-500',
+              pink: 'bg-pink-500',
+              cyan: 'bg-cyan-500',
+              orange: 'bg-orange-500'
+            };
+            
+            // Получаем класс для текущего цвета призрака
+            const ghostClass = ghostColorClasses[ghost.color] || 'bg-gray-500'; // по умолчанию серый, если цвет не найден
+            
+            return (
+              <div key={index} className="absolute" style={{left: `${ghost.x * 30}px`, top: `${ghost.y * 30}px`, width: '30px', height: '30px'}}>
+                <div className={`w-5 h-5 ${ghostClass} rounded-t-full z-10 ${
+                  animationFrame === 0 ? 'ghost-sway-left' : 'ghost-sway-right'
+                }`}></div>
+              </div>
+            );
+          })}
         </div>
       </div>
     );
